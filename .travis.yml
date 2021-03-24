@@ -22,4 +22,4 @@ script:
   skip_cleanup: true
   
   on:
-    branch: main
+    branch: master
