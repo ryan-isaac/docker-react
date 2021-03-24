@@ -1,22 +1,20 @@
-sudo: required
-services:
-  - docker
-
-before_install:
-  - docker build -t saud/docker-react -f Dockerfile.dev .
-
-script:
-  - docker run saud/docker-react npm run test -- --coverage
-  
- deploy:
+--- 
+before_install: 
+  - "docker build -t saud/docker-react -f Dockerfile.dev ."
+deploy: 
+  access_key_id: $AWS_ACCESS_KEY
+  app: docker-react
+  bucket_name: elasticbeanstalk-us-east-2-057457200263
+  bucket_path: docker-react
+  env: Dockerreact-env1
   provider: elasticbeanstalk
-  region: "us-east-2"
-  app: "docker-react"
-  env: "Dockerreact-env1"
-  bucker_name: "elasticbeanstalk-us-east-2-057457200263"
-  bucket_path: "docker-react"
-  on:
+  region: us-east-2
+  secret_access_key: 
+    secure: $AWS_SECRET_KEY
+  true: 
     branch: master
-    access_key_id: $AWS_ACCESS_KEY 
-    secret_access_key:
-      secure: $AWS_SECRET_KEY
+script: 
+  - "docker run -e CI=true saud/docker-react npm run test -- --coverage"
+services: 
+  - docker
+sudo: required
