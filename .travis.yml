@@ -22,6 +22,4 @@ deploy:
   skip_cleanup: true
   
   on:
-    branches:
-      only: 
-        - "main"
+    branche: "main"
