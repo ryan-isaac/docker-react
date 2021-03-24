@@ -9,13 +9,17 @@ script:
   - docker run -e CI=true saud/docker-react npm run test -- --coverage
   
  deploy:
+  access_key_id: 
+    secure: "$AWS_ACCESS_KEY" 
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
   provider: "elasticbeanstalk"
   region: "us-east-2"
   app: "docker-react"
   env: "Dockerreact-env1"
   bucket_name: "elasticbeanstalk-us-east-2-057457200263"
   bucket_path: "docker-react"
-  access_key_id: "$AWS_ACCESS_KEY" 
-  secret_access_key: "$AWS_SECRET_KEY"
+  skip_cleanup: true
+  
   on:
     branch: main
